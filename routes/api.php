@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Http\Request;
@@ -16,4 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::controller(App\Http\Controllers\Api\BingoController::class)->group(function () {
+    Route::get('/bingo/{id}', 'show');
+    Route::post('/bingo', 'store');
 });
