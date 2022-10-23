@@ -64,3 +64,19 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 https://placeit.net/c/design-templates/?f_devices=YouTube%20Banner%20Maker
+https://levelup.gitconnected.com/how-to-set-up-and-use-vue-in-your-laravel-8-app-2dd0f174e1f8
+https://blog.parabah.com.br/vue-js-no-laravel-continuacao/
+https://www.w3schools.com/howto/howto_js_collapse_sidebar.asp
+https://blog.pagesd.info/2020/05/28/hide-show-sidebar/
+https://ismail9k.github.io/vue3-carousel/examples.html#basic-example
+https://appdividend.com/2022/02/28/laravel-vuejs/
+https://appdividend.com/category/laravel/
+https://www.jlgregorio.com.br/2021/08/13/configurando-o-vue-3-no-laravel-8/
+https://dev.to/wanjema/getting-started-with-laravel-and-vue-js-2hc6
+https://www.freecodecamp.org/news/how-to-build-a-full-stack-single-page-application-with-laravel-mysql-vue-and-docker/
+https://levelup.gitconnected.com/learn-angular-component-design-patterns-creating-a-drawer-component-c31c3244c974
+https://laraveling.tech/trabalhando-com-uuid-no-laravel/
+
+
+https://phoenixnap.com/kb/mysql-docker-container
+https://hevodata.com/learn/docker-mysql/

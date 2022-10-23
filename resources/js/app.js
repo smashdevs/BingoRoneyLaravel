@@ -1,11 +1,17 @@
+import './bootstrap';
+import { createApp } from 'vue';
+import ExampleComponent from './components/ExampleComponent.vue';
+import ExampleComponentDois from './components/Carousel.vue';
+import ChatComponent from './components/Chat.vue'
+import TelaBingoComponent from './components/TelaBingo.vue'
+import CorpoSorteio from './components/CorpoSorteio.vue'
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-import './bootstrap';
-import { createApp } from 'vue';
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -15,9 +21,10 @@ import { createApp } from 'vue';
 
 const app = createApp({});
 
-import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
-
+app.component('carousel', ExampleComponentDois);
+app.component('chat', ChatComponent)
+app.component('tela-bingo',TelaBingoComponent)
+app.component('corpo-sorteio',CorpoSorteio)
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

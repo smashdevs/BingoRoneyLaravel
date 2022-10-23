@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('tables', ['as' => 'pages.tables', 'uses' => 'App\Http\Controllers\PageController@tables']);
 		Route::get('typography', ['as' => 'pages.typography', 'uses' => 'App\Http\Controllers\PageController@typography']);
 		Route::get('upgrade', ['as' => 'pages.upgrade', 'uses' => 'App\Http\Controllers\PageController@upgrade']);
+        Route::resource('jogos', App\Http\Controllers\JogosController::class);
+        Route::resource('bingos', App\Http\Controllers\BingoController::class);
 });
 
 Route::group(['middleware' => 'auth'], function () {

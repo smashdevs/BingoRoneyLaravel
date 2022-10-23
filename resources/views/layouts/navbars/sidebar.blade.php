@@ -1,20 +1,20 @@
 <div class="sidebar">
     <div class="sidebar-wrapper">
         <div class="logo">
-            <a href="#" class="simple-text logo-mini">{{ __('BD') }}</a>
-            <a href="#" class="simple-text logo-normal">{{ __('Black Dashboard') }}</a>
+            <a href="#" class="simple-text logo-mini">{{ __('BR') }}</a>
+            <a href="#" class="simple-text logo-normal">{{ __('Bingo Roney') }}</a>
         </div>
         <ul class="nav">
             <li @if ($pageSlug == 'dashboard') class="active " @endif>
                 <a href="{{ route('home') }}">
-                    <i class="tim-icons icon-chart-pie-36"></i>
-                    <p>{{ __('Dashboard') }}</p>
+                    <i class="tim-icons icon-user-run"></i>
+                    <p>{{ __('início') }}</p>
                 </a>
             </li>
-            <li>
+            <li hidden>
                 <a data-toggle="collapse" href="#laravel-examples" aria-expanded="true">
                     <i class="fab fa-laravel" ></i>
-                    <span class="nav-link-text" >{{ __('Laravel Examples') }}</span>
+                    <span class="nav-link-text" >{{ __('Meus bingos') }}</span>
                     <b class="caret mt-1"></b>
                 </a>
 
@@ -34,6 +34,12 @@
                         </li>
                     </ul>
                 </div>
+            </li>
+            <li @if ($pageSlug == 'jogos') class="active " @endif>
+                <a href="{{ route('jogos.index') }}">
+                    <i class="tim-icons icon-atom"></i>
+                    <p>{{ __('Jogos') }}</p>
+                </a>
             </li>
             <li @if ($pageSlug == 'icons') class="active " @endif>
                 <a href="{{ route('pages.icons') }}">
