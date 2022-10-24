@@ -39,11 +39,19 @@ class BingoController extends Controller
     public function show($id)
     {
         $interval = 10;
-        $startTime = Carbon::parse(Carbon::create(2022, 10, 23, 19, 11, 0, 'America/Sao_Paulo'));
+        $startTime = Carbon::parse(Carbon::create(2022, 10, 23, 20, 38, 0, 'America/Sao_Paulo'));
         $finishTime = Carbon::parse(Carbon::now());
+        $less = true;
+
+        if($startTime->greaterThan($finishTime)){
+            $less = false;
+        }
+
         $totalDuration = $finishTime->diffInSeconds($startTime);
+        $totalDuration = $less ? $totalDuration: $totalDuration * -1;
         $interval = intdiv($totalDuration, $interval);
-        $numeros = [23,22,31,9,47,33,30,24,21,36,35,1,45,5,38,2,43,49,46,50,41,44,42,8,40,15,20,7,34,4,14,27,29,48,17,13,19,28,3,32,16,10,39,11,25,37,18,12,26,6];
+        $numeros = [23,22,31,9,47,33,30,24,21,36,35,1,45,5,38,2,43,49,46,50,
+        41,44,42,8,40,15,20,7,34,4,14,27,29,48,17,13,19,28,3,32,16,10,39,11,25,37,18,12,26,6];
 
         $result = [];
 
@@ -53,7 +61,7 @@ class BingoController extends Controller
             array_push($result,$numeros[$i]);
         }
 
-        return response()->json(["interval"=>$interval,"numeros"=>$result]);
+        return response()->json(["duration"=>$totalDuration,"interval"=>$interval,"numeros"=>$result]);
     }
 
     /**

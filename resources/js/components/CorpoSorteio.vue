@@ -8,7 +8,7 @@
     .full-height{height: 100%;}
 
     .topo-bolas{
-        height: 120%;
+        height: 80%;
     }
     .bg-gray{ background-color: gray;}
     .bg-red{ background-color: red;}
@@ -21,11 +21,11 @@
     }
     .bola div{
         border-radius: 50%;
-        border: 10px solid red;
+        border: 5px solid red;
         color: black;
         background-color: white;
-        height: 40px;
-        width: 40px;
+        height: 30px;
+        width: 30px;
         text-align: center;
         margin: 0 0px;
     }
@@ -40,10 +40,9 @@
         height: 120px;
         width: 120px;
         text-align: center;
-        margin: 0 0px;
-        position: absolute;
-        bottom: 20px;
-        left: -120px;
+        margin: 0px 0px;
+        margin-top: -120px;
+        margin-bottom: 10px;
     }
 
     .hide{
@@ -86,17 +85,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-1">
-                                <div class="bola-sorteio"><div>{{ 10 }}</div></div>
-                            </div>
-                            <div class="col-2">
+                            <div class="col-5 p-0">
                                 <img src="http://localhost:8000/images/Gaming%20Vlogger%20Channel%20Banner%20Maker%20copy.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-2">
+                                <div class="bola-sorteio"><div>{{ 10 }}</div></div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-12">
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="0"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                         </div>
@@ -145,6 +147,7 @@ export default {
   name: 'App',
   components: {
   },
+  props: ['numbers'],
   data(){
     let data = []
     for(let i = 1; i <= 50; i++){
@@ -153,6 +156,10 @@ export default {
     return {
         ballList:data
     }
+  },
+  created() {
+    // props are exposed on `this`
+    console.log(this.numbers)
   }
 };
 
