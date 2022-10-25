@@ -38,8 +38,8 @@ class BingoController extends Controller
      */
     public function show($id)
     {
-        $interval = 10;
-        $startTime = Carbon::parse(Carbon::create(2022, 10, 23, 20, 38, 0, 'America/Sao_Paulo'));
+        $interval = 5;
+        $startTime = Carbon::parse(Carbon::create(2022, 10, 25, 01, 51, 0, 'America/Sao_Paulo'));
         $finishTime = Carbon::parse(Carbon::now());
         $less = true;
 

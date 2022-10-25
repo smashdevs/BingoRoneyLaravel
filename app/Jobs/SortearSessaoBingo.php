@@ -53,7 +53,7 @@ class SortearSessaoBingo implements ShouldQueue
         var_dump(json_encode($numbers));
 
         $vencedores = [];
-        while(count($vencedores) < 3 && count($cartelas)){
+        while(count($vencedores) < 1 && count($cartelas)){
             foreach ($cartelas as $key => $value) {
                 $haystack = json_decode($value->numeros);
                 if(count(array_intersect($haystack, $numbers)) == 15){

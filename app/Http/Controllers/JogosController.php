@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Bingo;
 
 class JogosController extends Controller
 {
@@ -13,8 +14,6 @@ class JogosController extends Controller
      */
     public function index()
     {
-        $data = [];
-        return view('jogos.index', $data);
     }
 
     /**
@@ -46,7 +45,9 @@ class JogosController extends Controller
      */
     public function show($id)
     {
-        //
+        $bingo = Bingo::findOrFail($id);
+        $data = ["data"=> $bingo];
+        return view('jogos.index', $data);
     }
 
     /**
