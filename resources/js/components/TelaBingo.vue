@@ -39,10 +39,11 @@
     methods: {
         changeActive: function() {
             let count = 0;
-            var x = setInterval(() => {
-                console.log(document.numbers)
-                fetch('/api/bingo/1').then(result=>{return result.json()}).then(data=>{document.numbers = data.numeros})
-            }, 3000);
+            var x = setInterval(function(){
+                let element = this;
+                fetch('/api/bingo/1').then(function(result){return result.json()})
+                .then(function(data){element.numbers = data.numeros;}.bind(element))
+            }.bind(this), 5000);
         },
     },
   };
