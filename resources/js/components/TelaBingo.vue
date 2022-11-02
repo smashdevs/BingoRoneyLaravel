@@ -30,6 +30,7 @@
     data(){
         return {
             numbers: [],
+            vencedor: null,
             info: this.data
         }
     },
@@ -43,7 +44,10 @@
             var x = setInterval(function(){
                 let element = this;
                 fetch('/api/bingo/1').then(function(result){return result.json()})
-                .then(function(data){element.numbers = data.numeros;}.bind(element))
+                .then(function(data){
+                    element.numbers = data.numeros;
+                    element.vencedor = data.vencedor;
+                }.bind(element))
             }.bind(this), 5000);
         },
     },

@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Cartela;
+use App\Models\{Cartela,Bingo};
 use Illuminate\Support\Facades\DB;
 
 class SortearSessaoBingo implements ShouldQueue
@@ -39,7 +39,6 @@ class SortearSessaoBingo implements ShouldQueue
         ->where('status','=','CRIADO')->get();
 
         $numbers = $this->generateRandomNumbers(16);
-        var_dump(json_encode(count($cartelas)));
 
         $sortArray = [];
         for ($i=1; $i <= 50; $i++) {
@@ -50,35 +49,29 @@ class SortearSessaoBingo implements ShouldQueue
         $numbers = array_map(function($x) use($sortArray){
             return $sortArray[$x-1];
         }, $numbers);
-        var_dump(json_encode($numbers));
 
         $vencedores = [];
-        while(count($vencedores) < 1 && count($cartelas)){
+        while(count($vencedores) < 3 && count($cartelas)){
             foreach ($cartelas as $key => $value) {
                 $haystack = json_decode($value->numeros);
                 if(count(array_intersect($haystack, $numbers)) == 15){
+                    shuffle($numbers);
                     array_push($vencedores,(object)["rodada"=>count($vencedores)+1,"posicao"=>$key,
-                    "vencedor"=>$value,"numeros_qtd"=>count($numbers)]);
-                    // echo "\n\nGanhador\n\n";
-                    // var_dump([$value->id,$value->numeros],json_encode($numbers),count($numbers));
+                    "vencedor"=>$value,"numeros_qtd"=>count($numbers),"numeros_sorteados"=>$numbers]);
                     $value->status = "USADA";
                     $value->save();
-                    $cartelas = Cartela::where('bingo_id','=',$this->sessao)->where('status','=','CRIADO')->get();
+                    $cartelas = Cartela::where('bingo_id','=',$this->sessao)
+                    ->where('status','=','CRIADO')->get();
                 }
 
-                // echo "\n======>\n";
-
-                // var_dump("baguncando",random_int(1,100));
                 for ($i=0; $i < random_int(1,100); $i++) {
                     shuffle($sortArray);
                 }
-                // var_dump(json_encode($sortArray));
 
                 $numbers = array_map(function($x) use($sortArray){
                     return $sortArray[$x-1];
                 }, $numbers);
                 array_multisort($numbers);
-                var_dump("numeros sorteados",json_encode($numbers));
 
                 if(count($numbers) < 50){
                     $numbers = $this->addRandomNumber($numbers);
@@ -88,11 +81,15 @@ class SortearSessaoBingo implements ShouldQueue
             }
         }
 
-        echo "\n\n Vencedores \n\n";
-        var_dump(json_encode(array_map(function($x){return [$x->rodada,$x->posicao,$x->vencedor->id,$x->vencedor->numeros,$x->numeros_qtd];},
-        $vencedores)));
-        array_multisort($numbers);
-        echo json_encode($numbers);
+        // dd([array_map(function($x){return [$x->rodada,$x->posicao,$x->vencedor->id,
+            //$x->vencedor->numeros,$x->numeros_qtd];},
+        // $vencedores),$vencedores]);
+        $vencedor = array_shift($vencedores);
+        $bingo = Bingo::findOrFail($this->sessao);
+        $bingo->sorteados = $vencedor->numeros_sorteados;
+        $bingo->vencedor = $vencedor->vencedor->id;
+        $bingo->save();
+        return $bingo;
     }
 
     public function log($x){

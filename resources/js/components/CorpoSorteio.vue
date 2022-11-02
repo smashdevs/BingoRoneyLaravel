@@ -182,7 +182,6 @@ export default {
     console.log(JSON.parse(JSON.stringify(this.bingo)))
   },
   watch: {
-    // whenever question changes, this function will run
     numbers(newQuestion, oldQuestion) {
         newQuestion = JSON.parse(JSON.stringify(newQuestion));
         this.ballList = oldQuestion;

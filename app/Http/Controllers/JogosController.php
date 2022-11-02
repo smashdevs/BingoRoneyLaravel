@@ -14,6 +14,7 @@ class JogosController extends Controller
      */
     public function index()
     {
+        return view("jogos.index",["games"=>Bingo::where('user_id',auth()->user()->id)->get()]);
     }
 
     /**
@@ -47,7 +48,7 @@ class JogosController extends Controller
     {
         $bingo = Bingo::findOrFail($id);
         $data = ["data"=> $bingo];
-        return view('jogos.index', $data);
+        return view('jogos.show', $data);
     }
 
     /**

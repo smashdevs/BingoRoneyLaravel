@@ -14,7 +14,7 @@ textarea {
 }
 
 #messages-body {
-    background-color: #525f7f;
+    background-color: var(--dark);
     height: 83%;
     overflow-y: auto;
 }
@@ -25,14 +25,15 @@ textarea {
 }
 
 .message {
-    background-color: #cfd4e0;
+    background-color: var(--default);
+    color:white;
     margin-top: 15px;
     padding: 3px 0px;
     border-radius: 3px;
 }
 
 .justify-content-end .message{
-    background-color: var(--pink);
+    background-color: #0ecc7a;
 }
 
 .message:nth-child(1){

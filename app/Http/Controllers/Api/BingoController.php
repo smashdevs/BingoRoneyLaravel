@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
+use App\Models\{Bingo,Cartela,User};
 
 class BingoController extends Controller
 {
@@ -31,7 +32,7 @@ class BingoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource.e
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -39,9 +40,14 @@ class BingoController extends Controller
     public function show($id)
     {
         $interval = 5;
-        $startTime = Carbon::parse(Carbon::create(2022, 10, 25, 01, 51, 0, 'America/Sao_Paulo'));
-        $finishTime = Carbon::parse(Carbon::now());
+        $bingo = Bingo::find($id);
+        $startTime = Carbon::parse(Carbon::createFromFormat("Y-m-d\TH:i:sP", $bingo->hora_inicio,'America/Sao_Paulo'))->toArray();
+        $startTime = Carbon::create($startTime["year"],$startTime["month"],$startTime["day"],$startTime["hour"],$startTime["minute"],$startTime["second"]);
+        $finishTime = Carbon::parse(Carbon::now('America/Sao_Paulo'))->toArray();
+        $finishTime = Carbon::create($finishTime["year"],$finishTime["month"],$finishTime["day"],$finishTime["hour"],$finishTime["minute"],$finishTime["second"]);
         $less = true;
+        $cartela = null;
+        $user = null;
 
         if($startTime->greaterThan($finishTime)){
             $less = false;
@@ -50,18 +56,22 @@ class BingoController extends Controller
         $totalDuration = $finishTime->diffInSeconds($startTime);
         $totalDuration = $less ? $totalDuration: $totalDuration * -1;
         $interval = intdiv($totalDuration, $interval);
-        $numeros = [23,22,31,9,47,33,30,24,21,36,35,1,45,5,38,2,43,49,46,50,
-        41,44,42,8,40,15,20,7,34,4,14,27,29,48,17,13,19,28,3,32,16,10,39,11,25,37,18,12,26,6];
+        $numeros = json_decode($bingo->sorteados);
 
         $result = [];
 
-        $interval = $interval > 49 ? 49 : $interval;
+        $interval = $interval > count($numeros) - 1 ? count($numeros) - 1 : $interval;
 
         for ($i=0; $i <= $interval; $i++) {
             array_push($result,$numeros[$i]);
         }
 
-        return response()->json(["duration"=>$totalDuration,"interval"=>$interval,"numeros"=>$result]);
+        if($interval==count($numeros)-1){
+            $cartela = Cartela::find($bingo->vencedor);
+            $user = User::find($cartela->user_id);
+        }
+
+        return response()->json(["duration"=>$totalDuration,"interval"=>$interval,"numeros"=>$result, "vencedor"=>$user]);
     }
 
     /**
