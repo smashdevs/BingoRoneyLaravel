@@ -8,7 +8,8 @@
         {
             nome:'{!! $data->nome !!}',
             descricao:'{!! $data->descricao !!}',
-            uuid:'{!! $data->uuid !!}',
+            id:'{!! $data->id !!}',
+            horaBingo: '{!! $data->hora_inicio !!}'
         }"></tela-bingo>
 </div>
     @endsection

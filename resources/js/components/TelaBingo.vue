@@ -36,17 +36,25 @@
     },
     mounted() {
         this.changeActive();
-        console.log(this.data)
+        // console.log(this.data)
     },
     methods: {
         changeActive: function() {
+            fetch('/api/bingo/'+this.data.id).then(function(result){return result.json()})
+            .then(function(data){
+                console.info(data)
+                this.numbers = data.numeros;
+                this.info = data;
+            }.bind(this))
+
             let count = 0;
             var x = setInterval(function(){
                 let element = this;
-                fetch('/api/bingo/1').then(function(result){return result.json()})
+                fetch('/api/bingo/'+this.data.id).then(function(result){return result.json()})
                 .then(function(data){
+                    // console.info(data)
                     element.numbers = data.numeros;
-                    element.vencedor = data.vencedor;
+                    element.info = data;
                 }.bind(element))
             }.bind(this), 5000);
         },

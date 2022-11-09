@@ -5,6 +5,8 @@ import ExampleComponentDois from './components/Carousel.vue';
 import ChatComponent from './components/Chat.vue'
 import TelaBingoComponent from './components/TelaBingo.vue'
 import CorpoSorteio from './components/CorpoSorteio.vue'
+import ModalJogoAguardando from './components/modais/jogos/Aguardando.vue'
+import ModalJogoVencedor from './components/modais/jogos/Vencedor.vue'
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -25,6 +27,9 @@ app.component('carousel', ExampleComponentDois);
 app.component('chat', ChatComponent)
 app.component('tela-bingo',TelaBingoComponent)
 app.component('corpo-sorteio',CorpoSorteio)
+app.component('modal-jogo-aguardando',ModalJogoAguardando)
+app.component('modal-jogo-vencedor',ModalJogoVencedor)
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

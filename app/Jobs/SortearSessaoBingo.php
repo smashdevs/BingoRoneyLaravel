@@ -38,6 +38,10 @@ class SortearSessaoBingo implements ShouldQueue
         $cartelas = Cartela::where('bingo_id','=',$this->sessao)
         ->where('status','=','CRIADO')->get();
 
+        if(count($cartelas) == 0){
+            throw new \Exception('Bingo sem cartelas');
+        }
+
         $numbers = $this->generateRandomNumbers(16);
 
         $sortArray = [];

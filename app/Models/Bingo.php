@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Bingo extends Model
 {
     use HasFactory;
+
+    public $fillable = [ 'nome', 'descricao', 'user_id', 'sorteio' ];
 }

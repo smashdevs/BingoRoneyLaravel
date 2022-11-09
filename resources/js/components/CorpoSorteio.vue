@@ -153,6 +153,8 @@
             </div>
         </div>
     </div>
+    <modal-jogo-aguardando :data="info"></modal-jogo-aguardando>
+    <modal-jogo-vencedor :data="info"></modal-jogo-vencedor>
 </template>
 
 <script>
@@ -175,22 +177,42 @@ export default {
         [4,5,6,12,17,19,27,29,31,32,33,36,41,44,49],
         [1,4,10,11,14,17,27,29,30,31,36,37,39,40,50]
         ],
-        info: JSON.parse(JSON.stringify(this.bingo))
+        info: JSON.parse(JSON.stringify(this.bingo)),
     }
   },
   created() {
-    console.log(JSON.parse(JSON.stringify(this.bingo)))
+    // console.log(JSON.parse(JSON.stringify(this.info)))
   },
   watch: {
     numbers(newQuestion, oldQuestion) {
         newQuestion = JSON.parse(JSON.stringify(newQuestion));
+        oldQuestion = JSON.parse(JSON.stringify(oldQuestion));
+        // console.log(newQuestion, oldQuestion)
+
         this.ballList = oldQuestion;
+
         oldQuestion = JSON.parse(JSON.stringify(oldQuestion))
         let novaBola = newQuestion.filter(x => !oldQuestion.includes(x)).shift();
+
         this.bolaSorteio = novaBola !== undefined ? novaBola : this.bolaSorteio;
     },
-    data(old,newi){
-        console.log(old,newi)
+    bingo(old,newi){
+        old = JSON.parse(JSON.stringify(old));
+        newi = JSON.parse(JSON.stringify(newi));
+        // console.log(newi)
+        if(newi.numeros !== undefined && newi.numeros.length === 0){
+            $('#aguardandoModal').modal({
+                backdrop: 'static',
+            });
+            $('#aguardandoModal').modal('show');
+        }else if(newi.vencedor !== undefined && newi.vencedor !== null){
+            $('#vencedorModal').modal({
+                backdrop: 'static',
+            });
+            $('#vencedorModal').modal('show');
+            $('#text-vencedor').text(newi.vencedor.name);
+        }
+
     }
   },
 };

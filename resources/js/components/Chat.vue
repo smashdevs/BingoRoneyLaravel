@@ -254,7 +254,7 @@ const scrollSmoothToBottom = (id) => {
 }
 
 window.onload = ()=>{
-    setTimeout(()=>{scrollSmoothToBottom("messages-body");console.log('aqui')},500);
+    setTimeout(()=>{scrollSmoothToBottom("messages-body");},500);
 }
 
 </script>

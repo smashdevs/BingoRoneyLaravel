@@ -48,7 +48,7 @@ class JogosController extends Controller
     {
         $bingo = Bingo::findOrFail($id);
         $data = ["data"=> $bingo];
-        return view('jogos.show', $data);
+        return view('bingo.show', $data);
     }
 
     /**

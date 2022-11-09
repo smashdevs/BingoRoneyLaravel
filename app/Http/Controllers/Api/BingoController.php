@@ -28,7 +28,6 @@ class BingoController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -60,18 +59,25 @@ class BingoController extends Controller
 
         $result = [];
 
-        $interval = $interval > count($numeros) - 1 ? count($numeros) - 1 : $interval;
+        $interval = isset($numeros) && $interval > count($numeros) - 1 ? count($numeros) - 1 : $interval;
 
+        if(isset($numeros))
         for ($i=0; $i <= $interval; $i++) {
             array_push($result,$numeros[$i]);
         }
 
+        if(isset($numeros))
         if($interval==count($numeros)-1){
             $cartela = Cartela::find($bingo->vencedor);
             $user = User::find($cartela->user_id);
         }
 
-        return response()->json(["duration"=>$totalDuration,"interval"=>$interval,"numeros"=>$result, "vencedor"=>$user]);
+        return response()->json([
+            "duration"=>$totalDuration,
+            "interval"=>$interval,
+            "numeros"=>$result,
+            "vencedor"=>$user,
+            "horaInicio" => $startTime->isoFormat('YYYY-MM-DDTHH:mm:ss+00:00')]);
     }
 
     /**

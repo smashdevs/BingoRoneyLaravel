@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('bingos', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid');
+            $table->uuid('uuid')->default(DB::raw('(UUID())'));
             $table->string('nome');
             $table->unsignedBigInteger('user_id');
             $table->string('status')->default("CRIADO");

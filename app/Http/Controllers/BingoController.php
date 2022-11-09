@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBingoRequest;
 use App\Http\Requests\UpdateBingoRequest;
 use App\Models\Bingo;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class BingoController extends Controller
 {
@@ -15,7 +17,7 @@ class BingoController extends Controller
      */
     public function index()
     {
-        return view('bingo.index', []);
+        return view('bingo.index', ["games"=>Bingo::where('user_id',auth()->user()->id)->get()]);
     }
 
     /**
@@ -36,7 +38,17 @@ class BingoController extends Controller
      */
     public function store(StoreBingoRequest $request)
     {
-        //
+        $input = (object) $request->all();
+        $bingo = new bingo();
+        $bingo->uuid = (string) Str::uuid();
+        $bingo->nome = $input->inputNome;
+        $bingo->descricao = $input->inputDescricao;
+        $bingo->user_id = auth()->user()->id;
+        dd($input);
+        $bingo->hora_inicio = Carbon::create();
+        $bingo->save();
+
+        return redirect()->back();
     }
 
     /**
